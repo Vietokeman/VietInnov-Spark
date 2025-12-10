@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage";
 import QuizPage from "./pages/QuizPage";
 import CaseStudyPage from "./pages/CaseStudyPage";
 import LibraryPage from "./pages/LibraryPage";
+import MiniGamePage from "./pages/MiniGamePage";
 import IntroLoader from "./components/sections/IntroLoader";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -131,6 +132,7 @@ const App: React.FC = () => {
                         <Route path="/" element={<HomePage />} />
                         <Route path="/quiz" element={<QuizPage />} />
                         <Route path="/case-study" element={<CaseStudyPage />} />
+                        <Route path="/minigame" element={<MiniGamePage />} />
                       </Routes>
                       <Footer />
                       <ScrollToTop />
