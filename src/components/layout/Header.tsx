@@ -4,28 +4,18 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X, Star } from "lucide-react";
 
-const navigation = [
+type NavItem = {
+  name: string;
+  href: string;
+  children?: NavItem[];
+};
+
+const navigation: NavItem[] = [
   { name: "Trang Chủ", href: "/" },
-  { name: "Tổng Quan", href: "/tong-quan" },
-  {
-    name: "Chi Tiết",
-    href: "#",
-    children: [
-      {
-        name: "Kháng Chiến Chống Pháp (1945-1954)",
-        href: "/chi-tiet/khang-chien-chong-phap",
-      },
-      {
-        name: "Kháng Chiến Chống Mỹ (1954-1975)",
-        href: "/chi-tiet/khang-chien-chong-my",
-      },
-    ],
-  },
-  { name: "Nhật Ký Trường Sơn", href: "/nhat-ky" },
-  { name: "Nhân Vật Lịch Sử", href: "/nhan-vat-lich-su" },
-  { name: "Thư Viện", href: "/thu-vien" },
+  { name: "Thư Viện 3D", href: "/thu-vien" },
   { name: "Ý Nghĩa", href: "/y-nghia" },
   { name: "Quiz", href: "/quiz" },
+  { name: "Mini Game", href: "/minigame" },
   { name: "AI Hỗ Trợ", href: "/ai-ho-tro" },
 ];
 
@@ -90,7 +80,7 @@ export default function Header() {
                   className="text-[#FFD700] text-xs tracking-[0.2em] font-medium"
                   style={{ color: "#FFD700" }}
                 >
-                  1945 — 1975
+                  1986 — 1996
                 </span>
                 <div className="w-4 h-px bg-[#FFD700]/50"></div>
               </div>

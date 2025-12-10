@@ -8,7 +8,7 @@ const introQuotes = [
     line2: "Mà để tiếp lửa – dựng xây ngày mai.",
   },
   {
-    line1: "1945–1975: Hai miền – Một ý chí",
+    line1: "1986–1996: Hai miền – Một ý chí",
     line2: "Dưới ngọn cờ Đảng – dân tộc kiên cường đi tới.",
   },
   {
