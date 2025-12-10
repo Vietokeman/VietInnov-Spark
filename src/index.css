@@ -2,17 +2,103 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Vietnam Flag & Banner Color Palette (baochinhphu.vn inspired) */
+  --vietnam-red: #AC0705;
+  --vietnam-gold: #FFD700;
+  --vietnam-white: #FFFFFF;
+  --deep-red: #8B1A1A;
+  --off-white: #FAFAFA;
+
+  /* Updated Historical Color Palette */
+  --antique-gold: var(--vietnam-gold);
+  --ancient-stone: #6B6560;
+  --royal-burgundy: var(--deep-red);
+  --timeless-navy: #0F1C3F;
+  --rustic-olive: #4A5D23;
+  --antique-parchment: var(--off-white);
+  --parchment-dark: #E8DCC8;
+  --sepia: #704214;
+  --ink-black: #1A1A1A;
+
+  /* Semantic colors */
+  --background: linear-gradient(135deg, var(--vietnam-red) 0%, #D32F2F 50%, #AC0705 100%);
+  --foreground: var(--vietnam-white);
+  --card-background: var(--off-white);
+  --card-border: var(--vietnam-gold);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card-background);
+  --color-card-foreground: var(--ink-black);
+  --color-border: var(--card-border);
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
 @layer base {
   * {
     @apply box-border;
   }
 
   body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    line-height: 1.7;
     @apply antialiased;
   }
 
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Base Typography - Only specific styles, avoids overriding utilities */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Links */
+  a {
+    color: var(--vietnam-gold);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--vietnam-white);
+  }
+
+  /* Container */
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* Selection */
+  ::selection {
+    background: var(--vietnam-gold);
+    color: var(--deep-red);
   }
 }
 
@@ -90,5 +176,65 @@
       transform: scale(1.05);
       opacity: 0.9;
     }
+  }
+
+  /* Custom Scrollbar for history sidebar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+  }
+
+  /* Chatbot Animations */
+  @keyframes chatbot-slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes message-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bounce-gentle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  .chatbot-slide-up {
+    animation: chatbot-slide-up 0.3s ease-out forwards;
+  }
+
+  .message-fade-in {
+    animation: message-fade-in 0.3s ease-out forwards;
+  }
+
+  .animate-bounce-gentle {
+    animation: bounce-gentle 2s infinite ease-in-out;
   }
 }

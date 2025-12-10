@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/layout/Navbar";
+import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import ScrollToTop from "./components/layout/ScrollToTop";
 import HomePage from "./pages/HomePage";
@@ -113,12 +113,7 @@ const App: React.FC = () => {
           <div ref={smoothWrapper} id="smooth-wrapper" className="min-h-screen">
             <div ref={smoothContent} id="smooth-content">
               <div className="bg-gradient-to-br from-red-50 via-yellow-50 to-white">
-                <Navbar />
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/quiz" element={<QuizPage />} />
-                  <Route path="/case-study" element={<CaseStudyPage />} />
-                </Routes>
+                <Header />
                 <Footer />
                 <ScrollToTop />
               </div>
