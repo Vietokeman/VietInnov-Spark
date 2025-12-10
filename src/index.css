@@ -6,7 +6,7 @@
   * {
     @apply box-border;
   }
-  
+
   body {
     @apply antialiased;
   }
@@ -66,5 +66,29 @@
   /* Custom cursor blur effect (placeholder) */
   .cursor-blur {
     cursor: pointer;
+  }
+
+  /* Wave animation for flag */
+  @keyframes wave {
+    0%,
+    100% {
+      transform: translateX(-5%);
+    }
+    50% {
+      transform: translateX(5%);
+    }
+  }
+
+  /* Star pulse animation */
+  @keyframes starPulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
   }
 }

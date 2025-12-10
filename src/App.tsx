@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -6,6 +6,7 @@ import ScrollToTop from './components/layout/ScrollToTop';
 import HomePage from './pages/HomePage';
 import QuizPage from './pages/QuizPage';
 import CaseStudyPage from './pages/CaseStudyPage';
+import IntroLoader from './components/sections/IntroLoader';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
@@ -15,6 +16,24 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 const App: React.FC = () => {
   const smoothWrapper = useRef<HTMLDivElement>(null);
   const smoothContent = useRef<HTMLDivElement>(null);
+  const [showIntro, setShowIntro] = useState(true);
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    // Check if intro has been shown in this session
+    const introShown = sessionStorage.getItem("introShown");
+    if (introShown) {
+      setShowIntro(false);
+      setShowContent(true);
+    }
+  }, []);
+
+  const handleIntroComplete = () => {
+    setShowIntro(false);
+    setShowContent(true);
+    // Mark intro as shown for this session
+    sessionStorage.setItem("introShown", "true");
+  };
 
   useEffect(() => {
     // Initialize ScrollSmoother for buttery smooth scrolling
