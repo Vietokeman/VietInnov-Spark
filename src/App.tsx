@@ -6,6 +6,7 @@ import ScrollToTop from "./components/layout/ScrollToTop";
 import HomePage from "./pages/HomePage";
 import QuizPage from "./pages/QuizPage";
 import CaseStudyPage from "./pages/CaseStudyPage";
+import LibraryPage from "./pages/LibraryPage";
 import IntroLoader from "./components/sections/IntroLoader";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -114,6 +115,12 @@ const App: React.FC = () => {
             <div ref={smoothContent} id="smooth-content">
               <div className="bg-gradient-to-br from-red-50 via-yellow-50 to-white">
                 <Header />
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/quiz" element={<QuizPage />} />
+                  <Route path="/case-study" element={<CaseStudyPage />} />
+                  <Route path="/thu-vien" element={<LibraryPage />} />
+                </Routes>
                 <Footer />
                 <ScrollToTop />
               </div>
