@@ -1,15 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import Header from './components/layout/Header';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ScrollToTop from './components/layout/ScrollToTop';
-import { Hero } from './components/sections/Hero';
-import HistoryTimeline from './components/sections/HistoryTimeline';
-import ReformAnalysis from './components/sections/ReformAnalysis';
-import InteractiveQuiz from './components/sections/InteractiveQuiz';
-import KeyAchievements from './components/sections/KeyAchievements';
-import ModernContext from './components/sections/ModernContext';
-import AIUsage from './components/sections/AIUsage';
-import CTA from './components/sections/CTA';
+import HomePage from './pages/HomePage';
+import QuizPage from './pages/QuizPage';
+import CaseStudyPage from './pages/CaseStudyPage';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
@@ -85,25 +81,22 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div ref={smoothWrapper} id="smooth-wrapper" className="min-h-screen">
-      <div ref={smoothContent} id="smooth-content">
-        <div className="bg-gradient-to-br from-red-50 via-yellow-50 to-white">
-          <Header />
-          <main>
-            <Hero />
-            <HistoryTimeline />
-            <ReformAnalysis />
-            <KeyAchievements />
-            <InteractiveQuiz />
-            <ModernContext />
-            <AIUsage />
-            <CTA />
-          </main>
-          <Footer />
-          <ScrollToTop />
+    <Router>
+      <div ref={smoothWrapper} id="smooth-wrapper" className="min-h-screen">
+        <div ref={smoothContent} id="smooth-content">
+          <div className="bg-gradient-to-br from-red-50 via-yellow-50 to-white">
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/quiz" element={<QuizPage />} />
+              <Route path="/case-study" element={<CaseStudyPage />} />
+            </Routes>
+            <Footer />
+            <ScrollToTop />
+          </div>
         </div>
       </div>
-    </div>
+    </Router>
   );
 };
 
