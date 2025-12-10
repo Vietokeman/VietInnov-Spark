@@ -111,21 +111,35 @@ const App: React.FC = () => {
         style={{ visibility: showContent ? "visible" : "hidden" }}
       >
         <Router>
-          <div ref={smoothWrapper} id="smooth-wrapper" className="min-h-screen">
-            <div ref={smoothContent} id="smooth-content">
-              <div className="bg-gradient-to-br from-red-50 via-yellow-50 to-white">
-                <Header />
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/quiz" element={<QuizPage />} />
-                  <Route path="/case-study" element={<CaseStudyPage />} />
-                  <Route path="/thu-vien" element={<LibraryPage />} />
-                </Routes>
-                <Footer />
-                <ScrollToTop />
-              </div>
-            </div>
-          </div>
+          <Routes>
+            {/* Library page with its own layout (no header/footer wrapper) */}
+            <Route path="/thu-vien" element={<LibraryPage />} />
+
+            {/* All other pages with standard layout */}
+            <Route
+              path="*"
+              element={
+                <div
+                  ref={smoothWrapper}
+                  id="smooth-wrapper"
+                  className="min-h-screen"
+                >
+                  <div ref={smoothContent} id="smooth-content">
+                    <div className="bg-gradient-to-br from-red-50 via-yellow-50 to-white">
+                      <Header />
+                      <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/quiz" element={<QuizPage />} />
+                        <Route path="/case-study" element={<CaseStudyPage />} />
+                      </Routes>
+                      <Footer />
+                      <ScrollToTop />
+                    </div>
+                  </div>
+                </div>
+              }
+            />
+          </Routes>
         </Router>
       </div>
     </>

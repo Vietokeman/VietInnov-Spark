@@ -1,17 +1,12 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import CircularGallery from "../components/CircularGallery/CircularGallery";
 import DomeGallery from "../components/DomeGallery/DomeGallery";
-import { FaArrowLeft, FaImages, FaCube } from "react-icons/fa";
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
+import { FaImages, FaCube } from "react-icons/fa";
 
 export default function LibraryPage() {
   const [mode, setMode] = useState<"dome" | "circular">("dome");
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Smooth scroll to top on mount
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
 
   const ethnicImages = [
     {
@@ -55,51 +50,45 @@ export default function LibraryPage() {
   }));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a1628] via-[#071122] to-[#112240] text-[#e6f1ff] overflow-hidden">
-      {/* Header Controls */}
-      <div className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 py-6 bg-[rgba(17,34,64,0.95)] backdrop-blur-[10px] border-b-2 border-[rgba(100,181,246,0.2)] shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
-        <button
-          className="flex items-center gap-3 px-6 py-3 text-base font-semibold text-[#64b5f6] bg-transparent border-2 border-[#64b5f6] rounded-md cursor-pointer transition-all duration-300 hover:border-[#4fc3f7] hover:bg-[rgba(100,181,246,0.1)] hover:-translate-x-1 hover:shadow-[0_0_15px_rgba(100,181,246,0.3)]"
-          onClick={() => navigate("/")}
-        >
-          <FaArrowLeft className="text-xl" />
-          <span>Trang Chủ</span>
-        </button>
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-yellow-50 to-white">
+      {/* Header */}
+      <Header />
 
-        <h1 className="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-[#64b5f6] text-center uppercase tracking-wider shadow-[0_2px_10px_rgba(100,181,246,0.3)] max-md:hidden">
-          Phòng Triển Lãm Ảnh Công nghệ 3D AI
-        </h1>
-
-        <div className="flex gap-2 bg-[rgba(17,34,64,0.5)] p-1 rounded-full border border-[rgba(100,181,246,0.2)]">
+      {/* Mode Toggle Bar - Right aligned */}
+      <div className="fixed top-20 right-6 z-[60] flex items-center gap-3">
+        <span className="text-[#FFD700] text-sm font-semibold hidden md:inline">
+          Chế độ xem:
+        </span>
+        <div className="flex gap-2 bg-[rgba(139,26,26,0.9)] p-1 rounded-full border-2 border-[#FFD700]/40 shadow-[0_0_20px_rgba(255,215,0,0.2)] backdrop-blur-md">
           <button
-            className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold rounded-full border-none cursor-pointer transition-all duration-300 ${
+            className={`flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 ${
               mode === "dome"
-                ? "bg-[#ff4757] text-[#e6f1ff] shadow-[0_4px_12px_rgba(255,71,87,0.4)]"
-                : "bg-transparent text-[#e6f1ff] hover:bg-[rgba(100,181,246,0.1)] hover:text-[#64b5f6]"
-            } max-[480px]:[&>span]:hidden`}
+                ? "bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#8B1A1A] shadow-[0_4px_12px_rgba(255,215,0,0.5)]"
+                : "bg-transparent text-[#FFD700] hover:bg-[rgba(255,215,0,0.1)]"
+            }`}
             onClick={() => setMode("dome")}
           >
-            <FaCube className="text-lg" />
+            <FaCube className="text-sm" />
             <span>Tròn</span>
           </button>
           <button
-            className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold rounded-full border-none cursor-pointer transition-all duration-300 ${
+            className={`flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-full transition-all duration-300 ${
               mode === "circular"
-                ? "bg-[#ff4757] text-[#e6f1ff] shadow-[0_4px_12px_rgba(255,71,87,0.4)]"
-                : "bg-transparent text-[#e6f1ff] hover:bg-[rgba(100,181,246,0.1)] hover:text-[#64b5f6]"
-            } max-[480px]:[&>span]:hidden`}
+                ? "bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#8B1A1A] shadow-[0_4px_12px_rgba(255,215,0,0.5)]"
+                : "bg-transparent text-[#FFD700] hover:bg-[rgba(255,215,0,0.1)]"
+            }`}
             onClick={() => setMode("circular")}
           >
-            <FaImages className="text-lg" />
+            <FaImages className="text-sm" />
             <span>Ngang</span>
           </button>
         </div>
       </div>
 
       {/* Gallery Container */}
-      <div className="fixed top-20 left-0 right-0 bottom-32 overflow-hidden max-md:top-[70px] max-md:bottom-24">
+      <div className="relative w-full" style={{ height: "calc(100vh - 73px)" }}>
         {mode === "dome" ? (
-          <div className="w-full h-full relative">
+          <div className="w-full h-full">
             <DomeGallery
               images={domeImages}
               fit={0.65}
@@ -118,7 +107,7 @@ export default function LibraryPage() {
             />
           </div>
         ) : (
-          <div className="w-full h-full relative bg-transparent">
+          <div className="w-full h-full">
             <CircularGallery
               items={ethnicImages}
               bend={3}
@@ -131,6 +120,9 @@ export default function LibraryPage() {
           </div>
         )}
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
