@@ -114,7 +114,7 @@ export default function LibraryPage() {
               textColor="#d4af37"
               borderRadius={0.08}
               font="bold 28px 'Playfair Display', serif"
-              scrollSpeed={2.5}
+              scrollSpeed={1}
               scrollEase={0.08}
             />
           </div>
