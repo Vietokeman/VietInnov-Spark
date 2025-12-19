@@ -5,24 +5,25 @@ import Footer from "./components/layout/Footer";
 import ScrollToTop from "./components/layout/ScrollToTop";
 import FloatingChatBot from "./components/ChatBot/FloatingChatBot";
 import HomePage from "./pages/HomePage";
-import QuizPage from "./pages/QuizPage";
+import FirebaseQuizPage from "./pages/FirebaseQuizPage";
+import QuizAdminPage from "./pages/QuizAdminPage";
 import CaseStudyPage from "./pages/CaseStudyPage";
 import LibraryPage from "./pages/LibraryPage";
 import MiniGamePage from "./pages/MiniGamePage";
 import AIUsagePage from "./pages/AIUsagePage";
 import YNghiaPage from "./pages/YNghiaPage";
+import VideoExplanationPage from "./pages/VideoExplanationPage";
 import IntroLoader from "./components/sections/IntroLoader";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollSmoother } from "gsap/ScrollSmoother";
 
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(ScrollTrigger);
 
 const App: React.FC = () => {
-  const smoothWrapper = useRef<HTMLDivElement>(null);
-  const smoothContent = useRef<HTMLDivElement>(null);
   const [showIntro, setShowIntro] = useState(true);
   const [showContent, setShowContent] = useState(false);
+  const smoothWrapper = useRef<HTMLDivElement>(null);
+  const smoothContent = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Check if intro has been shown in this session
@@ -41,18 +42,8 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    // Initialize ScrollSmoother for buttery smooth scrolling
-    let smoother: ScrollSmoother | null = null;
-
-    if (smoothWrapper.current && smoothContent.current) {
-      smoother = ScrollSmoother.create({
-        wrapper: smoothWrapper.current,
-        content: smoothContent.current,
-        smooth: 1.5,
-        effects: true,
-        smoothTouch: 0.1,
-      });
-    }
+    // DISABLED ScrollSmoother - it was blocking scroll events for ScrollToTop button
+    // Using normal scroll with ScrollTrigger instead
 
     // Advanced scroll animations with stagger
     const sections = gsap.utils.toArray<HTMLElement>(".animate-section");
@@ -99,7 +90,6 @@ const App: React.FC = () => {
     });
 
     return () => {
-      smoother?.kill();
       ScrollTrigger.getAll().forEach((st) => st.kill());
     };
   }, []);
@@ -116,7 +106,7 @@ const App: React.FC = () => {
         <Router>
           {/* Global Floating ChatBot - Available on all routes */}
           <FloatingChatBot />
-          
+
           <Routes>
             {/* Library page with its own layout (no header/footer wrapper) */}
             <Route path="/thu-vien" element={<LibraryPage />} />
@@ -135,10 +125,15 @@ const App: React.FC = () => {
                       <Header />
                       <Routes>
                         <Route path="/" element={<HomePage />} />
-                        <Route path="/quiz" element={<QuizPage />} />
+                        <Route path="/quiz" element={<FirebaseQuizPage />} />
+                        <Route path="/quiz-admin" element={<QuizAdminPage />} />
                         <Route path="/case-study" element={<CaseStudyPage />} />
                         <Route path="/minigame" element={<MiniGamePage />} />
                         <Route path="/y-nghia" element={<YNghiaPage />} />
+                        <Route
+                          path="/video-giai-thich"
+                          element={<VideoExplanationPage />}
+                        />
                         <Route path="/ai-ho-tro" element={<AIUsagePage />} />
                       </Routes>
                       <Footer />

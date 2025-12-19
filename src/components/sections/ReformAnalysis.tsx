@@ -5,6 +5,7 @@ interface TabContent {
   id: string;
   title: string;
   icon: string;
+  image: string | null;
   content: string[];
 }
 
@@ -16,6 +17,7 @@ const ReformAnalysis: React.FC = () => {
       id: "context",
       title: "Bối Cảnh Trước 1986",
       icon: "📊",
+      image: null,
       content: [
         "🔴 Lạm phát tăng cao (453% năm 1986)",
         "🔴 Sản xuất đình trệ, thiếu hụt hàng hóa trầm trọng",
@@ -28,6 +30,7 @@ const ReformAnalysis: React.FC = () => {
       id: "reform",
       title: "Đại Hội VI - 1986",
       icon: "🚀",
+      image: "/img/daihoiVI_color.jpg",
       content: [
         "✨ Đổi mới tư duy kinh tế: Từ kế hoạch hóa sang thị trường",
         "✨ Công nhận nhiều thành phần kinh tế",
@@ -40,6 +43,7 @@ const ReformAnalysis: React.FC = () => {
       id: "impact",
       title: "Thành Tựu 1986-1996",
       icon: "⚡",
+      image: "/img/chutruongdoimoi.png",
       content: [
         "✅ GDP tăng trưởng bình quân 7-8%/năm",
         "✅ Lạm phát giảm xuống dưới 10%",
@@ -52,6 +56,7 @@ const ReformAnalysis: React.FC = () => {
       id: "lesson",
       title: "Bài Học Kinh Nghiệm",
       icon: "📚",
+      image: null,
       content: [
         "💡 Đổi mới tư duy: Từ kế hoạch hóa sang kinh tế thị trường",
         "💡 Đồng bộ hóa: Cải cách kinh tế - chính trị - xã hội",
@@ -131,9 +136,8 @@ const ReformAnalysis: React.FC = () => {
             <motion.button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-3 font-semibold transition-all border-2 ${
-                activeTab === tab.id ? "shadow-xl" : "shadow-md"
-              }`}
+              className={`px-6 py-3 font-semibold transition-all border-2 ${activeTab === tab.id ? "shadow-xl" : "shadow-md"
+                }`}
               style={{
                 backgroundColor:
                   activeTab === tab.id
@@ -165,7 +169,7 @@ const ReformAnalysis: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className="max-w-4xl mx-auto"
+            className="max-w-5xl mx-auto"
           >
             <div
               className="shadow-xl rounded-2xl p-8 border-4"
@@ -174,6 +178,61 @@ const ReformAnalysis: React.FC = () => {
                 borderColor: "var(--vietnam-gold)",
               }}
             >
+              {/* Image Display - Show when tab has image */}
+              {currentTab.image && (
+                <motion.div
+                  className="mb-8 relative"
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.7, ease: "easeOut" }}
+                >
+                  {/* Vietnamese pattern background */}
+                  <div
+                    className="absolute -inset-4 rounded-2xl opacity-20"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffd700' fill-opacity='0.6'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                    }}
+                  />
+
+                  {/* Double gold frame */}
+                  <div
+                    className="relative rounded-xl overflow-hidden shadow-2xl"
+                    style={{
+                      border: "4px solid var(--vietnam-gold)",
+                      boxShadow: "0 0 0 2px var(--vietnam-red), 0 0 0 6px var(--vietnam-gold), 0 20px 40px rgba(0,0,0,0.3)",
+                    }}
+                  >
+                    <motion.img
+                      src={currentTab.image}
+                      alt={currentTab.title}
+                      className="w-full h-72 md:h-96 object-cover object-center"
+                      initial={{ scale: 1.1 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 1, ease: "easeOut" }}
+                      whileHover={{ scale: 1.02 }}
+                    />
+
+                    {/* Subtle overlay gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+                  </div>
+
+                  {/* Image caption with gold accent */}
+                  <div
+                    className="mt-3 py-3 px-6 text-center font-semibold rounded-lg shadow-lg"
+                    style={{
+                      background: "linear-gradient(135deg, var(--vietnam-red) 0%, #8b1a1a 100%)",
+                      color: "var(--vietnam-white)",
+                      borderLeft: "4px solid var(--vietnam-gold)",
+                      borderRight: "4px solid var(--vietnam-gold)",
+                    }}
+                  >
+                    {currentTab.id === "reform"
+                      ? "Đại hội VI của Đảng Cộng sản Việt Nam - Tháng 12/1986"
+                      : "Chủ trương đường lối Đổi mới toàn diện đất nước"}
+                  </div>
+                </motion.div>
+              )}
+
               <div className="flex items-center gap-4 mb-6">
                 <motion.div
                   className="text-5xl"

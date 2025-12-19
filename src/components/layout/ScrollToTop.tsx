@@ -12,17 +12,26 @@ const ScrollToTop: React.FC = () => {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
+      const scrollPosition =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollPosition > 300) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
     };
 
-    window.addEventListener("scroll", toggleVisibility);
+    // Listen to window scroll
+    window.addEventListener("scroll", toggleVisibility, { passive: true });
 
-    return () => window.removeEventListener("scroll", toggleVisibility);
-  }, []);
+    // Initial check
+    toggleVisibility();
+
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
+  }, [location.pathname]);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -36,7 +45,7 @@ const ScrollToTop: React.FC = () => {
       {isVisible && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 p-3 bg-purple-600 text-white rounded-full shadow-lg hover:bg-purple-700 transition-all duration-300 hover:scale-110 z-40"
+          className="fixed bottom-8 right-8 p-3 bg-red-600 text-white rounded-full shadow-lg hover:bg-red-700 transition-all duration-300 hover:scale-110 z-40"
           aria-label="Scroll to top"
         >
           <svg
